@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>K2C Universal License Hub</title>
+  <title>K2C Universal License Hub - Once-Claim Engine Edition</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -14,6 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
   <script>
+    /* STREAMING_CHUNK:Configuring Tailwind Theme Tokens... */
     tailwind.config = {
       darkMode: 'class',
       theme: {
@@ -36,7 +37,7 @@
   </script>
 
   <style>
-    /* Custom Keyframe Animations */
+    /* STREAMING_CHUNK:Injecting Custom Keyframe Animations... */
     @keyframes neon-pulse {
       0%, 100% {
         border-color: rgba(255, 0, 51, 0.8);
@@ -90,7 +91,6 @@
       transform: translateY(-1px);
     }
 
-    /* Scrollbar Customization */
     ::-webkit-scrollbar {
       width: 6px;
       height: 6px;
@@ -111,6 +111,7 @@
 <body class="bg-jet text-goldSand font-sans min-h-screen flex flex-col selection:bg-neonRed selection:text-white">
 
   <!-- TOP BAR / HEADER -->
+  <!-- STREAMING_CHUNK:Rendering Header Navigation... -->
   <header class="bg-obsidian border-b border-neonRed/30 px-4 py-3 sticky top-0 z-30 shadow-lg shadow-black/80">
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
       
@@ -125,9 +126,9 @@
       <!-- SYSTEM STATUS & API SETTINGS BUTTON -->
       <div class="flex items-center space-x-4 text-xs font-mono">
         <div class="flex items-center space-x-2 bg-jet/80 px-3 py-1.5 rounded border border-neonRed/20">
-          <span class="text-mutedText">Status:</span>
+          <span class="text-mutedText">Once-Claim Engine:</span>
           <span id="systemStatusIndicator" class="flex items-center gap-1.5 font-semibold text-emerald-400">
-            <span class="w-2 h-2 rounded-full bg-emerald-500"></span> ONLINE
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> ONLINE
           </span>
         </div>
 
@@ -144,6 +145,7 @@
   </header>
 
   <!-- NAVIGATION TAB BAR -->
+  <!-- STREAMING_CHUNK:Rendering Navigation Tab Bar... -->
   <nav class="bg-obsidian/60 border-b border-neonRed/20 backdrop-blur">
     <div class="max-w-7xl mx-auto flex overflow-x-auto no-scrollbar font-mono text-xs sm:text-sm">
       <button id="tabBtn-generator" onclick="switchTab('generator')" class="tab-button px-6 py-3 font-semibold flex items-center gap-2 border-b-2 border-neonRed text-goldImperial bg-neonRed/10 transition-all">
@@ -162,6 +164,7 @@
   <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 space-y-6">
 
     <!-- TAB 1: DASHBOARD GENERATOR -->
+    <!-- STREAMING_CHUNK:Rendering Tab 1 Generator Panel... -->
     <section id="tab-generator" class="tab-content block">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
@@ -171,7 +174,7 @@
             <h2 class="text-lg font-bold text-goldImperial font-mono flex items-center gap-2">
               <span>🔑</span> LISENSI GENERATOR ENGINE
             </h2>
-            <span class="text-xs text-mutedText font-mono">HMAC-SHA256 Active</span>
+            <span class="text-xs text-mutedText font-mono">HMAC-SHA256 Once-Claim</span>
           </div>
 
           <form id="generatorForm" onsubmit="handleGenerateKey(event)" class="space-y-4">
@@ -184,10 +187,10 @@
               </select>
             </div>
 
-            <!-- CLIENT HWID -->
+            <!-- CLIENT HWID (OPTIONAL AT GENERATION, LOCKS ON CLAIM) -->
             <div>
-              <label class="block text-xs font-mono text-goldSand uppercase tracking-wider mb-1">HWID Client / Hardware ID *</label>
-              <input type="text" id="genHwid" required placeholder="Contoh: BFEBFBFF000906EA-7A2F" class="w-full bg-jet border border-neonRed/40 rounded px-3 py-2 text-sm text-goldImperial focus:outline-none focus:border-neonRed font-mono uppercase tracking-wider"/>
+              <label class="block text-xs font-mono text-goldSand uppercase tracking-wider mb-1">Target HWID Client / Hardware ID (Opsional saat Generate)</label>
+              <input type="text" id="genHwid" placeholder="Opsional: WO-HWID-XXXX-XXXX (Bisa diisi saat diklaim)" class="w-full bg-jet border border-neonRed/40 rounded px-3 py-2 text-sm text-goldImperial focus:outline-none focus:border-neonRed font-mono uppercase tracking-wider"/>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -241,7 +244,7 @@
                 <span>📋</span> OUTPUT HASIL LISENSI
               </h2>
               <span id="outputBadge" class="hidden text-[10px] font-mono bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded">
-                GENERATED
+                GENERATED (UNCLAIMED)
               </span>
             </div>
 
@@ -258,7 +261,7 @@
               
               <!-- SERIAL KEY DISPLAY BOX -->
               <div class="bg-jet border-2 border-neonRed p-4 rounded text-center space-y-2">
-                <span class="text-[10px] font-mono text-mutedText uppercase tracking-widest block">SERIAL KEY TERDENGAR HASH</span>
+                <span class="text-[10px] font-mono text-mutedText uppercase tracking-widest block">SERIAL KEY (ONE-TIME REDEMPTION)</span>
                 <div id="resSerialKey" class="text-lg sm:text-xl font-bold font-mono text-goldImperial tracking-wider break-all gold-glow-text">
                   K2C-XXXX-XXXX-XXXX-30d
                 </div>
@@ -266,8 +269,8 @@
 
               <!-- EXPIRY BADGE -->
               <div class="flex items-center justify-between bg-jet/60 border border-neonRed/20 px-3 py-2 rounded font-mono text-xs">
-                <span class="text-mutedText">Masa Berlaku s/d:</span>
-                <span id="resExpiryDate" class="text-goldImperial font-bold">31-12-2026</span>
+                <span class="text-mutedText">Masa Aktif:</span>
+                <span id="resExpiryDate" class="text-goldImperial font-bold">30 Hari (Aktif Saat Diklaim)</span>
               </div>
 
               <!-- WHATSAPP BROADCAST PREVIEW -->
@@ -295,6 +298,7 @@
     </section>
 
     <!-- TAB 2: DATABASE CLIENT VAULT -->
+    <!-- STREAMING_CHUNK:Rendering Tab 2 Database Vault Table... -->
     <section id="tab-vault" class="tab-content hidden">
       <div class="bg-obsidian p-6 rounded-lg neon-border space-y-4">
         
@@ -302,9 +306,9 @@
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-neonRed/20 pb-4">
           <div>
             <h2 class="text-lg font-bold text-goldImperial font-mono flex items-center gap-2">
-              <span>🗄</span> DATABASE CLIENT VAULT
+              <span>🗄</span> DATABASE CLIENT VAULT (ONCE-CLAIM TRACKER)
             </h2>
-            <p class="text-xs text-mutedText font-mono">Daftar lisensi terbit & pemantauan status real-time</p>
+            <p class="text-xs text-mutedText font-mono">Daftar lisensi terbit, status klaim (UNCLAIMED vs CLAIMED), & HWID terpaut</p>
           </div>
 
           <div class="flex items-center gap-2 w-full sm:w-auto">
@@ -322,18 +326,17 @@
               <tr class="bg-jet border-b border-neonRed/30 text-goldImperial uppercase tracking-wider">
                 <th class="p-3">TGL TERBIT</th>
                 <th class="p-3">TOKO / OWNER</th>
-                <th class="p-3">WHATSAPP</th>
                 <th class="p-3">APLIKASI</th>
-                <th class="p-3">HWID</th>
                 <th class="p-3">DURASI</th>
-                <th class="p-3">KEDALUWARSA</th>
                 <th class="p-3">SERIAL KEY</th>
-                <th class="p-3">STATUS</th>
+                <th class="p-3">STATUS KLAIM</th>
+                <th class="p-3">HWID PENGKLAIM</th>
+                <th class="p-3">TGL KLAIM</th>
               </tr>
             </thead>
             <tbody id="vaultTableBody" class="divide-y divide-neonRed/10 text-goldSand">
               <tr>
-                <td colspan="9" class="p-6 text-center text-mutedText">Klik tombol Refresh untuk memuat data vault...</td>
+                <td colspan="8" class="p-6 text-center text-mutedText">Klik tombol Refresh untuk memuat data vault...</td>
               </tr>
             </tbody>
           </table>
@@ -343,6 +346,7 @@
     </section>
 
     <!-- TAB 3: APP & SALT MANAGER -->
+    <!-- STREAMING_CHUNK:Rendering Tab 3 App Config Manager... -->
     <section id="tab-apps" class="tab-content hidden">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
@@ -358,12 +362,12 @@
           <form id="appConfigForm" onsubmit="handleSaveAppConfig(event)" class="space-y-4">
             <div>
               <label class="block text-xs font-mono text-goldSand uppercase mb-1">App ID / Kode Singkat *</label>
-              <input type="text" id="appIdInput" required placeholder="Contoh: K2C-POS" class="w-full bg-jet border border-neonRed/40 rounded px-3 py-2 text-sm text-goldImperial focus:outline-none focus:border-neonRed font-mono uppercase"/>
+              <input type="text" id="appIdInput" required placeholder="Contoh: K2C-WO" class="w-full bg-jet border border-neonRed/40 rounded px-3 py-2 text-sm text-goldImperial focus:outline-none focus:border-neonRed font-mono uppercase"/>
             </div>
 
             <div>
               <label class="block text-xs font-mono text-goldSand uppercase mb-1">Nama Tampilan Aplikasi *</label>
-              <input type="text" id="appNameInput" required placeholder="Contoh: K2c POS System Pro" class="w-full bg-jet border border-neonRed/40 rounded px-3 py-2 text-sm text-goldSand focus:outline-none focus:border-neonRed"/>
+              <input type="text" id="appNameInput" required placeholder="Contoh: Wedding Organizer Digital Portal" class="w-full bg-jet border border-neonRed/40 rounded px-3 py-2 text-sm text-goldSand focus:outline-none focus:border-neonRed"/>
             </div>
 
             <div>
@@ -412,6 +416,7 @@
   </main>
 
   <!-- AUTHENTICATION & PIN LOCK MODAL OVERLAY -->
+  <!-- STREAMING_CHUNK:Rendering Authentication Lock Modal... -->
   <div id="pinModalOverlay" class="fixed inset-0 z-50 bg-jet/95 backdrop-blur-md flex items-center justify-center p-4">
     <div class="bg-obsidian w-full max-w-md p-6 rounded-xl border-2 border-neonRed shadow-2xl shadow-neonRed/30 text-center space-y-6">
       
@@ -434,7 +439,7 @@
       </form>
 
       <div class="text-[11px] text-mutedText font-mono border-t border-neonRed/20 pt-3">
-        K2C Universal License Hub Security Engine
+        K2C Universal License Hub Security Engine v3.0
       </div>
     </div>
   </div>
@@ -464,9 +469,9 @@
   <div id="toastContainer" class="fixed bottom-4 right-4 z-50 space-y-2 pointer-events-none"></div>
 
   <!-- JS LOGIC ENGINE -->
+  <!-- STREAMING_CHUNK:Initializing Frontend JS Controller... -->
   <script>
-    // GLOBAL STATE MANAGEMENT
-    const DEFAULT_API_URL = "https://script.google.com/macros/s/AKfycbyDPyK7B3CTdD7uw32wO0XcX2prmFeDGr-mhpIsogEjsJQ8w_rNOXFBPrhnnq3w2pMa/exec";
+    const DEFAULT_API_URL = "https://script.google.com/macros/s/AKfycbwNBkqK8Z9M5JctiwSsvaxoQKEt8sm6tvw6ps2S1gShf2WTDm10Ym-t4qEE3Z11n85f/exec";
     
     function getApiUrl() {
       return localStorage.getItem('k2c_api_url') || DEFAULT_API_URL;
@@ -476,7 +481,6 @@
       return sessionStorage.getItem('k2c_pin') || '';
     }
 
-    // INITIALIZATION
     window.addEventListener('DOMContentLoaded', () => {
       document.getElementById('apiUrlInput').value = getApiUrl();
       
@@ -489,7 +493,6 @@
       }
     });
 
-    // API CONFIG MODAL HANDLERS
     function openApiConfigModal() {
       document.getElementById('apiConfigModal').classList.remove('hidden');
     }
@@ -510,7 +513,6 @@
       if (getPin()) initDashboardData();
     }
 
-    // AUTHENTICATION ENGINE
     async function handlePinSubmit(e) {
       e.preventDefault();
       const pin = document.getElementById('pinInput').value.trim();
@@ -546,12 +548,10 @@
       showToast('Dashboard Terkunci', 'info');
     }
 
-    // DASHBOARD INITIAL LOAD
     function initDashboardData() {
       fetchAppList();
     }
 
-    // NAVIGATION SYSTEM
     function switchTab(tabName) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
       document.querySelectorAll('.tab-button').forEach(el => {
@@ -568,12 +568,10 @@
       if (tabName === 'apps') fetchAppList();
     }
 
-    // FORM PRESET DURATION
     function setPresetDuration(days) {
       document.getElementById('genDurationDays').value = days;
     }
 
-    // BACKEND API FETCH ENGINE
     async function callBackendAPI(action, payload = {}) {
       const url = getApiUrl();
       const requestData = { action, ...payload };
@@ -587,7 +585,6 @@
       return await response.json();
     }
 
-    // FETCH APP LIST
     async function fetchAppList() {
       const pin = getPin();
       if (!pin) return;
@@ -631,7 +628,6 @@
       `).join('');
     }
 
-    // SAVE APP CONFIG
     async function handleSaveAppConfig(e) {
       e.preventDefault();
       const pin = getPin();
@@ -660,7 +656,6 @@
       }
     }
 
-    // GENERATE KEY HANDLER
     async function handleGenerateKey(e) {
       e.preventDefault();
       const pin = getPin();
@@ -691,10 +686,10 @@
           document.getElementById('outputBadge').classList.remove('hidden');
 
           document.getElementById('resSerialKey').innerText = res.serial_key;
-          document.getElementById('resExpiryDate').innerText = res.expiry_date;
+          document.getElementById('resExpiryDate').innerText = `${res.durationDays} Hari (Siap Diklaim 1x)`;
           document.getElementById('resWaPreview').value = res.wa_message_template;
 
-          showToast('Serial Key Berhasil Digenerate!', 'success');
+          showToast('Serial Key Once-Claim Berhasil Digenerate!', 'success');
         } else {
           showToast(res.message || 'Gagal generate Serial Key', 'error');
         }
@@ -706,11 +701,10 @@
       }
     }
 
-    // FETCH VAULT DATA
     async function fetchVaultData() {
       const pin = getPin();
       const tbody = document.getElementById('vaultTableBody');
-      tbody.innerHTML = '<tr><td colspan="9" class="p-6 text-center text-goldImperial animate-pulse">Memuat data vault dari Google Sheets...</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="8" class="p-6 text-center text-goldImperial animate-pulse">Memuat data vault dari Google Sheets...</td></tr>';
 
       try {
         const res = await callBackendAPI('GET_VAULT_DATA', { pin });
@@ -727,37 +721,31 @@
     function renderVaultTable(vault) {
       const tbody = document.getElementById('vaultTableBody');
       if (!vault || vault.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="9" class="p-6 text-center text-mutedText">Belum ada riwayat transaksi lisensi.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8" class="p-6 text-center text-mutedText">Belum ada riwayat transaksi lisensi.</td></tr>';
         return;
       }
 
       tbody.innerHTML = vault.map(row => {
-        const isExpired = row.status === 'EXPIRING / EXPIRED';
-        const badgeClass = isExpired
-          ? 'bg-neonRed/20 text-neonRed border-neonRed expired-badge-pulse font-bold'
-          : 'bg-emerald-500/20 text-emerald-400 border-emerald-500/50';
+        const isClaimed = row.claimStatus === 'CLAIMED';
+        const claimBadge = isClaimed
+          ? '<span class="px-2 py-0.5 rounded border text-[10px] inline-block bg-emerald-500/20 text-emerald-400 border-emerald-500/50 font-bold">✓ CLAIMED (USED)</span>'
+          : '<span class="px-2 py-0.5 rounded border text-[10px] inline-block bg-amber-500/20 text-amber-300 border-amber-500/50 font-bold">⏳ UNCLAIMED</span>';
 
         return `
           <tr class="hover:bg-jet/40 transition-colors">
             <td class="p-3 text-mutedText">${escapeHtml(row.timestamp)}</td>
             <td class="p-3 font-semibold text-goldSand">${escapeHtml(row.clientName)}</td>
-            <td class="p-3 text-mutedText">${escapeHtml(row.whatsapp)}</td>
             <td class="p-3 text-goldImperial font-bold">${escapeHtml(row.appId)}</td>
-            <td class="p-3 font-mono text-[11px]">${escapeHtml(row.hwid)}</td>
             <td class="p-3">${escapeHtml(row.durationDays)} Hari</td>
-            <td class="p-3 text-goldSand font-semibold">${escapeHtml(row.expiryDate)}</td>
             <td class="p-3 font-mono font-bold text-goldImperial select-all">${escapeHtml(row.serialKey)}</td>
-            <td class="p-3">
-              <span class="px-2 py-0.5 rounded border text-[10px] inline-block ${badgeClass}">
-                ${escapeHtml(row.status)}
-              </span>
-            </td>
+            <td class="p-3">${claimBadge}</td>
+            <td class="p-3 font-mono text-[11px] text-amber-300">${escapeHtml(row.claimedHwid || row.hwid || '-')}</td>
+            <td class="p-3 text-mutedText">${escapeHtml(row.claimedAt || '-')}</td>
           </tr>
         `;
       }).join('');
     }
 
-    // SEARCH FILTER FOR VAULT TABLE
     function filterVaultTable() {
       const query = document.getElementById('vaultSearchInput').value.toLowerCase();
       const rows = document.querySelectorAll('#vaultTableBody tr');
@@ -768,7 +756,6 @@
       });
     }
 
-    // COPY ACTIONS
     function copySerialOnly() {
       const key = document.getElementById('resSerialKey').innerText;
       navigator.clipboard.writeText(key);
@@ -781,7 +768,6 @@
       showToast('Format WA Broadcast tersimpan ke clipboard!', 'success');
     }
 
-    // UTILITY UTILS
     function escapeHtml(str) {
       return String(str || '').replace(/[&<>"']/g, function(m) {
         return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
